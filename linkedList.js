@@ -108,6 +108,28 @@ class LinkedList {
     }
     return `${str} (${pointer.value}) -> (null)`;
   }
+
+  insertAt(value, index) {
+    if (!this.head) return null;
+    let pointer = this.head;
+    if (index === 0) {
+      this.prepend(value);
+    } else {
+      for (let i = 1; i < index; i += 1) {
+        pointer = pointer.next;
+      }
+      const newNode = new Node(value);
+      const pointerNext = pointer.next;
+      pointer.next = newNode;
+      newNode.next = pointerNext;
+      this.length += 1;
+    }
+  }
+
+  removeAt(index) {
+    if (!this.head) return null;
+
+  }
 }
 
 const list = new LinkedList();
@@ -122,4 +144,5 @@ console.log(list.at(2));
 console.log(list.pop());
 console.log(list.contains(3));
 console.log(list.find(2));
+console.log(list.insertAt(7, 1));
 console.log(list.toString());
