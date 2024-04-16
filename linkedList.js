@@ -128,7 +128,13 @@ class LinkedList {
 
   removeAt(index) {
     if (!this.head) return null;
+    if (index === 0) {
+      this.head = this.head.next;
+    }
+    const previousNode = this.at(index - 1);
+    const nextNode = this.at(index + 1);
 
+    previousNode.next = nextNode;
   }
 }
 
@@ -145,4 +151,5 @@ console.log(list.pop());
 console.log(list.contains(3));
 console.log(list.find(2));
 console.log(list.insertAt(7, 1));
+console.log(list.removeAt(2));
 console.log(list.toString());
