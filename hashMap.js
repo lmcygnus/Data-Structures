@@ -1,4 +1,6 @@
 /* eslint-disable max-classes-per-file */
+import { LinkedList } from './linkedList';
+
 class Node {
   constructor(key, value) {
     this.key = key;
@@ -52,26 +54,34 @@ class HashMap {
 
   get(key) {
     const index = this.hash(key);
-    let currentNode = this.buckets[index];
-    while (currentNode) {
-      if (currentNode.key === key) {
-        return currentNode.value;
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error('Trying to access index out of bound');
+    } else {
+      let currentNode = this.buckets[index];
+      while (currentNode) {
+        if (currentNode.key === key) {
+          return currentNode.value;
+        }
+        currentNode = currentNode.next;
       }
-      currentNode = currentNode.next;
+      return null;
     }
-    return null;
   }
 
   has(key) {
     const index = this.hash(key);
-    let currentNode = this.buckets[index];
-    while (currentNode) {
-      if (currentNode.key === key) {
-        return true;
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error('Trying to access index out of bound');
+    } else {
+      let currentNode = this.buckets[index];
+      while (currentNode) {
+        if (currentNode.key === key) {
+          return true;
+        }
+        currentNode = currentNode.next;
       }
-      currentNode = currentNode.next;
+      return true;
     }
-    return false;
   }
 
   remove(key) {
@@ -80,6 +90,7 @@ class HashMap {
     while (currentNode) {
       if (currentNode.key === key) {
         currentNode = null;
+        return true;
       }
       currentNode = currentNode.next;
     }
@@ -87,11 +98,11 @@ class HashMap {
   }
 
   length() {
-
+    return this.size;
   }
 
   clear() {
-
+    this.buckets.forEach()
   }
 
   keys() {
@@ -115,6 +126,4 @@ class HashMap {
       }
     });
   }
-
-  sss;
 }
