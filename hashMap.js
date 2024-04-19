@@ -127,3 +127,8 @@ class HashMap {
     });
   }
 }
+
+const hashmp = new HashMap()
+
+console.log(hashmp.set('yo', 'loida'));
+console.log(hashmp.get('yo'));
