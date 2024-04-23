@@ -106,8 +106,10 @@ class HashMap {
   keys() {
     const keysArray = [];
     this.buckets.forEach((entry) => {
+      let bucket = entry;
       while (!entry.includes(undefined) || entry.next) {
         keysArray.push(entry.key);
+        bucket = bucket.next;
       }
     });
     return keysArray;
@@ -116,12 +118,25 @@ class HashMap {
   values() {
     const valuesArray = [];
     this.buckets.forEach((entry) => {
+      let bucket = entry;
       while (!entry.includes(undefined) || entry.next) {
         valuesArray.push(entry.value);
+        bucket = bucket.next;
       }
     });
     return valuesArray;
   }
+
+  entries() {
+    const entriesArray = [];
+    this.buckets.forEach((entry) => {
+      let bucket = entry;
+      while (!entry.includes(undefined) || entry.next) {
+        entriesArray.push([entry.key, entry.value]);
+        bucket = bucket.next;
+      }
+    });
+    return entriesArray;
   }
 
   resize() {
@@ -137,6 +152,7 @@ class HashMap {
       }
     });
   }
+}
 
 const hashmp = new HashMap();
 
