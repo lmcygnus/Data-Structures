@@ -34,7 +34,7 @@ class HashMap {
 
   set(key, value) {
     const index = this.hash(key);
-    this.checkIndex(index);
+    // this.checkIndex(index);
     if (!this.buckets[index]) {
       this.buckets[index] = new Node(key, value);
     } else {
@@ -46,7 +46,6 @@ class HashMap {
         }
         currentNode = currentNode.next;
       }
-      currentNode.next = new Node(key, value);
     }
     this.size += 1;
     if (this.size >= this.capacity * this.loadFactor) {
@@ -56,7 +55,7 @@ class HashMap {
 
   get(key) {
     const index = this.hash(key);
-    this.checkIndex(index);
+    // this.checkIndex(index);
     let currentNode = this.buckets[index];
     while (currentNode) {
       if (currentNode.key === key) {
@@ -82,7 +81,7 @@ class HashMap {
 
   remove(key) {
     const index = this.hash(key);
-    this.checkIndex(index);
+    // this.checkIndex(index);
     let currentNode = this.buckets[index];
     while (currentNode) {
       if (currentNode.key === key) {
@@ -100,14 +99,14 @@ class HashMap {
   }
 
   clear() {
-    this.buckets.forEach((entry) => entry.splice(0));
+    this.buckets = [];
   }
 
   keys() {
     const keysArray = [];
     this.buckets.forEach((entry) => {
       let bucket = entry;
-      while (!entry.includes(undefined) || entry.next) {
+      while (bucket) {
         keysArray.push(entry.key);
         bucket = bucket.next;
       }
@@ -119,7 +118,7 @@ class HashMap {
     const valuesArray = [];
     this.buckets.forEach((entry) => {
       let bucket = entry;
-      while (!entry.includes(undefined) || entry.next) {
+      while (bucket) {
         valuesArray.push(entry.value);
         bucket = bucket.next;
       }
@@ -131,7 +130,7 @@ class HashMap {
     const entriesArray = [];
     this.buckets.forEach((entry) => {
       let bucket = entry;
-      while (!entry.includes(undefined) || entry.next) {
+      while (bucket) {
         entriesArray.push([entry.key, entry.value]);
         bucket = bucket.next;
       }
@@ -163,3 +162,4 @@ console.log(hashmp.get('a'));
 console.log(hashmp.get('b'));
 
 console.log(hashmp.has('a'));
+console.log(hashmp.entries());
