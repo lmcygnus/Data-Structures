@@ -1,5 +1,4 @@
 /* eslint-disable max-classes-per-file */
-
 class Node {
   constructor(key, value) {
     this.key = key;
@@ -85,8 +84,9 @@ class HashMap {
     let currentNode = this.buckets[index];
     while (currentNode) {
       if (currentNode.key === key) {
-        currentNode = null;
-        return true;
+        const previousNode = this.buckets(index - 1);
+        const nextNode = this.buckets(index + 1);
+        previousNode.next = nextNode;
       }
       currentNode = currentNode.next;
     }

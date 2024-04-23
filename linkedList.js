@@ -153,5 +153,3 @@ console.log(list.find(2));
 console.log(list.insertAt(7, 1));
 console.log(list.removeAt(2));
 console.log(list.toString());
-
-export default LinkedList;
