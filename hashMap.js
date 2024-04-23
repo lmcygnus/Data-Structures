@@ -113,6 +113,17 @@ class HashMap {
     return keysArray;
   }
 
+  values() {
+    const valuesArray = [];
+    this.buckets.forEach((entry) => {
+      while (!entry.includes(undefined) || entry.next) {
+        valuesArray.push(entry.value);
+      }
+    });
+    return valuesArray;
+  }
+  }
+
   resize() {
     this.capacity *= 2;
     const oldBuckets = this.buckets;
@@ -126,7 +137,6 @@ class HashMap {
       }
     });
   }
-}
 
 const hashmp = new HashMap();
 
