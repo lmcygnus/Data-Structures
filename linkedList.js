@@ -1,4 +1,5 @@
 #!/usr/bin/node
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 /* eslint-disable max-classes-per-file */
 class Node {

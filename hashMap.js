@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable class-methods-use-this */
 /* eslint-disable max-classes-per-file */
 class Node {
   constructor(key, value) {
@@ -95,6 +97,20 @@ class HashMap {
 
   length() {
     return this.size;
+  }
+
+  clear() {
+    this.buckets.forEach((entry) => entry.splice(0));
+  }
+
+  keys() {
+    const keysArray = [];
+    this.buckets.forEach((entry) => {
+      while (!entry.includes(undefined) || entry.next) {
+        keysArray.push(entry.key);
+      }
+    });
+    return keysArray;
   }
 
   resize() {
