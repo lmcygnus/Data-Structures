@@ -1,5 +1,4 @@
 /* eslint-disable max-classes-per-file */
-import { LinkedList } from './linkedList';
 
 class Node {
   constructor(key, value) {
@@ -23,69 +22,66 @@ class HashMap {
     for (let i = 0; i < key.length; i += 1) {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
     }
-
     return hashCode;
+  }
+
+  checkIndex(index) {
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error('Trying to access index out of bound');
+    }
   }
 
   set(key, value) {
     const index = this.hash(key);
-    if (index < 0 || index >= this.buckets.length) {
-      throw new Error('Trying to access index out of bound');
+    this.checkIndex(index);
+    if (!this.buckets[index]) {
+      this.buckets[index] = new Node(key, value);
     } else {
-      if (!this.buckets[index]) {
-        this.buckets[index] = new Node(key, value);
-      } else {
-        let currentNode = this.buckets[index];
-        while (currentNode.next) {
-          if (currentNode.key === key) {
-            currentNode.value = value;
-            return;
-          }
-          currentNode = currentNode.next;
+      let currentNode = this.buckets[index];
+      while (currentNode.next) {
+        if (currentNode.key === key) {
+          currentNode.value = value;
+          return;
         }
-        currentNode.next = new Node(key, value);
+        currentNode = currentNode.next;
       }
-      this.size += 1;
-      if (this.size >= this.capacity * this.loadFactor) {
-        this.resize();
-      }
+      currentNode.next = new Node(key, value);
+    }
+    this.size += 1;
+    if (this.size >= this.capacity * this.loadFactor) {
+      this.resize();
     }
   }
 
   get(key) {
     const index = this.hash(key);
-    if (index < 0 || index >= this.buckets.length) {
-      throw new Error('Trying to access index out of bound');
-    } else {
-      let currentNode = this.buckets[index];
-      while (currentNode) {
-        if (currentNode.key === key) {
-          return currentNode.value;
-        }
-        currentNode = currentNode.next;
+    this.checkIndex(index);
+    let currentNode = this.buckets[index];
+    while (currentNode) {
+      if (currentNode.key === key) {
+        return currentNode.value;
       }
-      return null;
+      currentNode = currentNode.next;
     }
+    return null;
   }
 
   has(key) {
     const index = this.hash(key);
-    if (index < 0 || index >= this.buckets.length) {
-      throw new Error('Trying to access index out of bound');
-    } else {
-      let currentNode = this.buckets[index];
-      while (currentNode) {
-        if (currentNode.key === key) {
-          return true;
-        }
-        currentNode = currentNode.next;
+    this.checkIndex(index);
+    let currentNode = this.buckets[index];
+    while (currentNode) {
+      if (currentNode.key === key) {
+        return true;
       }
-      return true;
+      currentNode = currentNode.next;
     }
+    return false;
   }
 
   remove(key) {
     const index = this.hash(key);
+    this.checkIndex(index);
     let currentNode = this.buckets[index];
     while (currentNode) {
       if (currentNode.key === key) {
@@ -99,18 +95,6 @@ class HashMap {
 
   length() {
     return this.size;
-  }
-
-  clear() {
-    this.buckets.forEach()
-  }
-
-  keys() {
-
-  }
-
-  entries() {
-
   }
 
   resize() {
@@ -128,7 +112,12 @@ class HashMap {
   }
 }
 
-const hashmp = new HashMap()
+const hashmp = new HashMap();
 
-console.log(hashmp.set('yo', 'loida'));
-console.log(hashmp.get('yo'));
+console.log(hashmp.set('a', 'loida'));
+console.log(hashmp.set('b', '364'));
+
+console.log(hashmp.get('a'));
+console.log(hashmp.get('b'));
+
+console.log(hashmp.has('a'));
