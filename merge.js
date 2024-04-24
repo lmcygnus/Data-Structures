@@ -1,4 +1,7 @@
 function mergeSort(arr) {
+  if (!Array.isArray(arr)) {
+    throw new Error('The argument passed to mergeSort is not an arrays.');
+  }
   if (arr.length <= 1) {
     return arr;
   }
@@ -23,3 +26,5 @@ function mergeSort(arr) {
 
   return result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
 }
+
+export default mergeSort;
