@@ -27,14 +27,14 @@ class HashMap {
   }
 
   checkIndex(index) {
-    if (index < 0 || index >= this.buckets.length) {
+    if (index < 0 || index >= this.capacity) {
       throw new Error('Trying to access index out of bound');
     }
   }
 
   set(key, value) {
     const index = this.hash(key);
-    // this.checkIndex(index);
+    this.checkIndex(index);
     if (!this.buckets[index]) {
       this.buckets[index] = new Node(key, value);
     } else {
@@ -55,7 +55,7 @@ class HashMap {
 
   get(key) {
     const index = this.hash(key);
-    // this.checkIndex(index);
+    this.checkIndex(index);
     let currentNode = this.buckets[index];
     while (currentNode) {
       if (currentNode.key === key) {
@@ -81,12 +81,12 @@ class HashMap {
 
   remove(key) {
     const index = this.hash(key);
-    // this.checkIndex(index);
+    this.checkIndex(index);
     let currentNode = this.buckets[index];
+    const previousNode = this.buckets(index - 1);
+    const nextNode = this.buckets(index + 1);
     while (currentNode) {
       if (currentNode.key === key) {
-        const previousNode = this.buckets(index - 1);
-        const nextNode = this.buckets(index + 1);
         previousNode.next = nextNode;
       }
       currentNode = currentNode.next;
@@ -155,11 +155,13 @@ class HashMap {
 
 const hashmp = new HashMap();
 
-console.log(hashmp.set('a', 'loida'));
+console.log(hashmp.set('0', 'loida'));
 console.log(hashmp.set('b', '364'));
 
-console.log(hashmp.get('a'));
+console.log(hashmp.get('0'));
 console.log(hashmp.get('b'));
 
-console.log(hashmp.has('a'));
+console.log(hashmp.has('0'));
 console.log(hashmp.entries());
+console.log(hashmp.values());
+console.log(hashmp.keys());
