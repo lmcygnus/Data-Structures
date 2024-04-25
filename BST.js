@@ -28,17 +28,52 @@ class Tree {
   }
 
   insert(value) {
-    const insertRec = (root, value) => {
+    const insertRec = (root, val) => {
       let currentNode = root;
       if (currentNode == null) {
-        currentNode = new Node(value);
+        currentNode = new Node(val);
         return currentNode;
       }
-      if (value < currentNode.data) currentNode.left = insertRec(currentNode.left, value);
-      else if (value > currentNode.data) currentNode.right = insertRec(currentNode.right, value);
+      if (value < currentNode.data) currentNode.left = insertRec(currentNode.left, val);
+      else if (value > currentNode.data) currentNode.right = insertRec(currentNode.right, val);
       return currentNode;
     };
     this.root = insertRec(this.root, value);
+  }
+
+  minValue(node) {
+    let currentNode = node;
+    let minv = currentNode.data;
+    while (currentNode.left !== null) {
+      minv = currentNode.left.data;
+      currentNode = currentNode.left;
+    }
+    return minv;
+  }
+
+  delete(value) {
+    const deleteRec = (root, val) => {
+      let currentNode = root;
+      if (currentNode == null) {
+        return currentNode;
+      }
+      if (val < currentNode.data) {
+        currentNode.left = deleteRec(currentNode.left, val);
+      } else if (val > currentNode.data) {
+        currentNode.right = deleteRec(currentNode.right, val);
+      } else {
+        if (currentNode.left === null) {
+          return currentNode.right;
+        }
+        if (currentNode.right === null) {
+          return currentNode.left;
+        }
+        currentNode.data = this.minValue(currentNode.right);
+        currentNode.right = deleteRec(currentNode.right, currentNode.data);
+      }
+      return currentNode;
+    };
+    this.root = deleteRec(this.root, value);
   }
 }
 
@@ -56,4 +91,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 const art = new Tree([1, 2, 2, 3, 3, 4, 5, 5]);
+art.insert(7);
+art.delete(5);
 console.log(prettyPrint(art.root));
