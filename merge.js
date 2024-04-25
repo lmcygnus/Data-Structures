@@ -1,6 +1,6 @@
 function mergeSort(arr) {
   if (!Array.isArray(arr)) {
-    throw new Error('The argument passed to mergeSort is not an arrays.');
+    throw new Error('The argument passed to mergeSort is not an array.');
   }
   if (arr.length <= 1) {
     return arr;
