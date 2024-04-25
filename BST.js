@@ -26,6 +26,20 @@ class Tree {
     root.right = this.buildTree(arr, middle + 1, end);
     return root;
   }
+
+  insert(value) {
+    const insertRec = (root, value) => {
+      let currentNode = root;
+      if (currentNode == null) {
+        currentNode = new Node(value);
+        return currentNode;
+      }
+      if (value < currentNode.data) currentNode.left = insertRec(currentNode.left, value);
+      else if (value > currentNode.data) currentNode.right = insertRec(currentNode.right, value);
+      return currentNode;
+    };
+    this.root = insertRec(this.root, value);
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
