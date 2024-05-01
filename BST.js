@@ -53,7 +53,7 @@ class Tree {
 
   delete(value) {
     const deleteRec = (root, val) => {
-      let currentNode = root;
+      const currentNode = root;
       if (currentNode == null) {
         return currentNode;
       }
@@ -75,6 +75,21 @@ class Tree {
     };
     this.root = deleteRec(this.root, value);
   }
+
+  find(value) {
+    let currentNode = this.root;
+    while (currentNode) {
+      if (value === currentNode.data) {
+        return currentNode;
+      }
+      if (value < currentNode.data) {
+        currentNode = currentNode.left;
+      } else if (value > currentNode.data) {
+        currentNode = currentNode.right;
+      }
+    }
+    return currentNode;
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -93,4 +108,5 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 const art = new Tree([1, 2, 2, 3, 3, 4, 5, 5]);
 art.insert(7);
 art.delete(5);
+art.find(3);
 console.log(prettyPrint(art.root));
