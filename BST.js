@@ -113,7 +113,58 @@ class Tree {
         callback(node);
       });
     }
-    console.log(array);
+    return array;
+  }
+
+  preorder(callback) {
+    const array = [];
+    const recursionPreorder = (node) => {
+      if (node == null) return;
+      array.push(node.data);
+      recursionPreorder(node.left);
+      recursionPreorder(node.right);
+    };
+    recursionPreorder(this.root);
+    if (callback) {
+      array.forEach((node) => {
+        callback(node);
+      });
+    }
+    return array;
+  }
+
+  inorder(callback) {
+    const array = [];
+    const recursionPreorder = (node) => {
+      if (node == null) return;
+      recursionPreorder(node.left);
+      array.push(node.data);
+      recursionPreorder(node.right);
+    };
+    recursionPreorder(this.root);
+    if (callback) {
+      array.forEach((node) => {
+        callback(node);
+      });
+    }
+    return array;
+  }
+
+  postorder(callback) {
+    const array = [];
+    const recursionPreorder = (node) => {
+      if (node == null) return;
+      recursionPreorder(node.left);
+      recursionPreorder(node.right);
+      array.push(node.data);
+    };
+    recursionPreorder(this.root);
+    if (callback) {
+      array.forEach((node) => {
+        callback(node);
+      });
+    }
+    return array;
   }
 }
 
