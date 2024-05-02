@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-classes-per-file */
 import mergeSort from './merge.js';
 
@@ -12,7 +13,6 @@ class Tree {
   constructor(arr) {
     let sortedArray = [...new Set(arr)];
     sortedArray = mergeSort([...sortedArray]);
-    console.log(sortedArray);
     this.root = this.buildTree(sortedArray, 0, sortedArray.length - 1);
   }
 
@@ -90,6 +90,31 @@ class Tree {
     }
     return currentNode;
   }
+
+  levelOrder(callback) {
+    const queue = [];
+    const array = [];
+    let currentNode = this.root;
+    if (currentNode) {
+      queue.push(currentNode);
+      while (queue.length > 0) {
+        currentNode = queue.shift();
+        array.push(currentNode);
+        if (currentNode.left) {
+          queue.push(currentNode.left);
+        }
+        if (currentNode.right) {
+          queue.push(currentNode.right);
+        }
+      }
+    }
+    if (callback) {
+      array.forEach((node) => {
+        callback(node);
+      });
+    }
+    console.log(array);
+  }
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -108,5 +133,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 const art = new Tree([1, 2, 2, 3, 3, 4, 5, 5]);
 art.insert(7);
 art.delete(5);
-art.find(3);
+console.log(prettyPrint(art.find(4)));
+art.levelOrder();
 console.log(prettyPrint(art.root));
