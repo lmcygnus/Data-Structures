@@ -166,8 +166,21 @@ class Tree {
     }
     return array;
   }
-}
 
+  heigth(node) {
+    let heigth = 0;
+    const queue = [node];
+    while (queue.length > 0) {
+      for (let i = 0; i < queue.length; i += 1) {
+        const currentNode = queue.shift();
+        if (currentNode.left) queue.push(currentNode.left);
+        if (currentNode.right) queue.push(currentNode.right);
+      }
+      heigth += 1;
+    }
+    return heigth;
+  }
+}
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
     return;
@@ -181,9 +194,9 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-const art = new Tree([1, 2, 2, 3, 3, 4, 5, 5]);
+const art = new Tree([1, 2, 2, 23, 65, 9, 31, 3, 3, 4, 5, 5]);
 art.insert(7);
 art.delete(5);
-console.log(prettyPrint(art.find(4)));
-art.levelOrder();
+art.preorder();
+art.heigth(art.root);
 console.log(prettyPrint(art.root));
