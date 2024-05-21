@@ -116,6 +116,33 @@ class Tree {
     return array;
   }
 
+  levelOrderRec(callback) {
+    const queue = [];
+    const array = [];
+    let currentNode = this.root;
+    queue.push(currentNode);
+    const recursionLevelOrder = () => {
+      if (currentNode == null) return;
+      if (queue.length === 0) return;
+      currentNode = queue.shift();
+      array.push(currentNode);
+      if (currentNode.left) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.push(currentNode.right);
+      }
+      recursionLevelOrder();
+    };
+    recursionLevelOrder();
+    if (callback) {
+      array.forEach((node) => {
+        callback(node);
+      });
+    }
+    return array;
+  }
+
   preorder(callback) {
     const array = [];
     const recursionPreorder = (node) => {
@@ -194,9 +221,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-const art = new Tree([1, 2, 2, 23, 65, 9, 31, 3, 3, 4, 5, 5]);
+const art = new Tree([1, 2, 3, 4, 5, 6, 7]);
 art.insert(7);
-art.delete(5);
-art.preorder();
-art.heigth(art.root);
+console.log(art.levelOrder());
 console.log(prettyPrint(art.root));
