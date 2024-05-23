@@ -195,17 +195,33 @@ class Tree {
   }
 
   heigth(node) {
-    let heigth = 0;
-    const queue = [node];
-    while (queue.length > 0) {
-      for (let i = 0; i < queue.length; i += 1) {
-        const currentNode = queue.shift();
-        if (currentNode.left) queue.push(currentNode.left);
-        if (currentNode.right) queue.push(currentNode.right);
+    let left;
+    let right;
+    const findHeight = (root) => {
+      if (root === null) return -1;
+      left = findHeight(root.left);
+      right = findHeight(root.right);
+      return Math.max(left, right) + 1;
+    };
+    return findHeight(node);
+  }
+
+  depth(node) {
+    let depth = 0;
+    const findDepth = (current) => {
+      if (current === null) return null;
+      if (current.data === node.data) return depth;
+      if (node.data < current.data) {
+        findDepth(current.left);
+        depth += 1;
       }
-      heigth += 1;
-    }
-    return heigth;
+      if (node.data > current.data) {
+        findDepth(current.right);
+        depth += 1;
+      }
+      return depth;
+    };
+    return findDepth(this.root);
   }
 }
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -222,6 +238,6 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 };
 
 const art = new Tree([1, 2, 3, 4, 5, 6, 7]);
-art.insert(7);
-console.log(art.levelOrder());
+console.log(art.depth(art.find(4)));
+
 console.log(prettyPrint(art.root));
