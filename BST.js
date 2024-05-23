@@ -223,7 +223,21 @@ class Tree {
     };
     return findDepth(this.root);
   }
+
+  isBalanced() {
+    const { root } = this;
+    const leftSubtree = root.left;
+    const rightSubtree = root.right;
+    if (root.left !== null || root.right !== null) {
+      const leftHeight = this.heigth(leftSubtree);
+      const rightHeight = this.heigth(rightSubtree);
+      const diference = Math.abs(leftHeight - rightHeight);
+      if (diference > 1) return true;
+      return false;
+    }
+  }
 }
+
 const prettyPrint = (node, prefix = '', isLeft = true) => {
   if (node === null) {
     return;
@@ -239,5 +253,5 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 
 const art = new Tree([1, 2, 3, 4, 5, 6, 7]);
 console.log(art.depth(art.find(4)));
-
+console.log(art.isBalanced());
 console.log(prettyPrint(art.root));
