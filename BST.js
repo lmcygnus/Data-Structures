@@ -232,9 +232,14 @@ class Tree {
       const leftHeight = this.heigth(leftSubtree);
       const rightHeight = this.heigth(rightSubtree);
       const diference = Math.abs(leftHeight - rightHeight);
-      if (diference > 1) return true;
+      if (diference <= 1) return true;
       return false;
     }
+  }
+
+  rebalance() {
+    const array = this.inorder();
+    this.root = this.buildTree(array, 0, array.length - 1);
   }
 }
 
