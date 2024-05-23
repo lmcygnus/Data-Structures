@@ -125,7 +125,7 @@ class Tree {
       if (currentNode == null) return;
       if (queue.length === 0) return;
       currentNode = queue.shift();
-      array.push(currentNode);
+      array.push(currentNode.data);
       if (currentNode.left) {
         queue.push(currentNode.left);
       }
@@ -255,8 +255,37 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
     prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
   }
 };
-
+// Create a binary search tree from an array of random numbers < 100.
 const art = new Tree([1, 2, 3, 4, 5, 6, 7]);
-console.log(art.depth(art.find(4)));
+
+// Confirm that the tree is balanced by calling isBalanced
 console.log(art.isBalanced());
+
+// Print out all elements in level, pre, post, and in order.
+console.log(art.levelOrder());
+console.log(art.preorder());
+console.log(art.inorder());
+console.log(art.postorder());
+
+// Unbalance the tree by adding several numbers > 100.
+art.insert(120);
+art.insert(130);
+art.insert(140);
+art.insert(150);
+
+// Confirm that the tree is unbalanced by calling isBalanced.
+console.log(art.isBalanced());
+
+// Balance the tree by calling rebalance.
+art.rebalance();
+
+// Confirm that the tree is balanced by calling isBalanced.
+console.log(art.isBalanced());
+
+// Print out all elements in level, pre, post, and in order.
+console.log(art.levelOrder());
+console.log(art.preorder());
+console.log(art.inorder());
+console.log(art.postorder());
+
 console.log(prettyPrint(art.root));
