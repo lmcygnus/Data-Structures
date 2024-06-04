@@ -23,11 +23,16 @@ function allMoves(x, y) {
   array.filter((element) => element.length === 2);
 }
 
-console.log(allMoves(7, 7));
-
 function containsEnd(array, end) {
   if (array.find((move) => move[0] === end[0] && move[1] === end[1])) {
     return true;
   }
 }
 
+function convertToNode (move, array) {
+  const node = new Position(move);
+  array.push(node);
+  return array;
+}
+
+console.log(allMoves(7, 7));
