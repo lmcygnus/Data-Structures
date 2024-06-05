@@ -41,15 +41,14 @@ function containsEnd(array, end) {
 
 function constructPath(array) {
   let current = array.pop();
-  let distance = current.distance;
-  console.log(distance);
+  const { distance } = current;
   const path = [];
   while (current) {
     path.push(current.coord);
     current = current.predecesor;
   }
   const result = path.reverse();
-  return `You made it in ${distance}! Here's your path : ${result}`;
+  return `You made it in ${distance} moves! Here's your path : ${JSON.stringify(result)}`;
 }
 
 function knightMoves(start, end) {
